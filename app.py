@@ -51,9 +51,9 @@ def root_page():
             "<br> Mediafire Client: "+start_mediafire_client_resp+"<br>"
 
 
-    ytid = request.args.get("ytid")
+    ytid = str(request.args.get("ytid"))
 
-    resp_err_txt += "<br> Youtube ID: "+str(request.args.get("ytid"))+"<br>"
+    resp_err_txt += "<br> Youtube ID: "+ytid+"<br>"
     isgood = False
     if ytid and client:
         print("Youtube ID:",ytid)
