@@ -48,7 +48,7 @@ def root_page():
     if not client:
         start_mediafire_client_resp = start_mediafire_client()
         if start_mediafire_client_resp:
-            resp_err_txt += "\n Mediafire Client: "+start_mediafire_client_resp+"\n"
+            resp_err_txt += "\n Mediafire Client: "+start_mediafire_client_resp+" \n"
 
 
     ytid = str(request.args.get("ytid"))
@@ -65,7 +65,7 @@ def root_page():
                         mediafire_files.append(item['filename'])
                         #print("File: {}".format(item['filename']))
             except Exception as e:
-                resp_err_txt += str(e)+"<br>"
+                resp_err_txt += str(e)+" \n"
                 pass
 
 
@@ -78,16 +78,17 @@ def root_page():
                     if dl_url:
                         isgood = True
                 except Exception as e:
-                    resp_err_txt += str(e)+"<br>"
+                    resp_err_txt += str(e)+" \n"
                     pass
             else:
-                resp_err_txt += " File Not Found<br>"
+                resp_err_txt += " File Not Found \n"
                 print("File Not Found")
 
     if isgood:
         return Response(dl_url, status=201, mimetype="text/plain")
     else:
-        resp_err_txt += "\n ENV Email: "+str(os.getenv('mediafire_email'))+"\n"
+        resp_err_txt += "\n ENV Email: "+str(os.getenv('mediafire_email'))+" \n"
+        resp_err_txt += "\n ENV Pass: "+str(os.getenv('mediafire_pass'))+" \n"
         return Response(resp_err_txt, status=404, mimetype="text/plain")
 
     #print(ytid)
