@@ -1,4 +1,4 @@
-import os
+import os,sys
 from mediafire.client import (MediaFireClient, File, Folder)
 from flask import Flask, request,Response
 #from dotenv import load_dotenv
@@ -18,7 +18,6 @@ except Exception as e:
 mediafire_files = []
 
 
-
 @app.route('/files')
 def get_files_page():
     global mediafire_files
@@ -31,6 +30,7 @@ def get_files_page():
 @app.route('/')
 def root_page():
     global mediafire_files
+
     ytid = request.args.get("ytid")
     isgood = False
     if ytid and client:
