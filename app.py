@@ -43,17 +43,17 @@ def get_files_page():
 def root_page():
     global mediafire_files
 
-    resp_err_txt = "<br> Error <br>"
+    resp_err_txt = "\n Error \n"
 
     if not client:
         start_mediafire_client_resp = start_mediafire_client()
         if start_mediafire_client_resp:
-            "<br> Mediafire Client: "+start_mediafire_client_resp+"<br>"
+            resp_err_txt += "\n Mediafire Client: "+start_mediafire_client_resp+"\n"
 
 
     ytid = str(request.args.get("ytid"))
 
-    resp_err_txt += "<br> Youtube ID: "+ytid+"<br>"
+    resp_err_txt += "\n Youtube ID: "+ytid+"\n"
     isgood = False
     if ytid and client:
         print("Youtube ID:",ytid)
@@ -71,7 +71,7 @@ def root_page():
 
         if mediafire_files:
             if ytid in mediafire_files:
-                resp_err_txt += " File Found<br>"
+                resp_err_txt += " File Found \n"
                 print("File Found, Getting DL Url.")
                 try:
                     dl_url = client.get_file_dl_url("mf:/karaoke/"+ytid)
@@ -87,7 +87,7 @@ def root_page():
     if isgood:
         return Response(dl_url, status=201, mimetype="text/plain")
     else:
-        resp_err_txt += "<br> ENV Email: "+str(os.getenv('mediafire_email'))+"<br>"
+        resp_err_txt += "\n ENV Email: "+str(os.getenv('mediafire_email'))+"\n"
         return Response(resp_err_txt, status=404, mimetype="text/plain")
 
     #print(ytid)
