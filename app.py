@@ -36,6 +36,8 @@ def root_page():
 
     ytid = request.args.get("ytid")
     resp_txt = "<br> Error <br>"
+    resp_txt += " Youtube ID: "+request.args.get("ytid")+"<br>"
+    resp_txt += " Mediafire Client: "+str(client)+"<br>"
     isgood = False
     if ytid and client:
         print("Youtube ID:",ytid)
