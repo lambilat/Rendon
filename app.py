@@ -32,7 +32,7 @@ def get_files_page():
     global mediafire_files
     if not client:
         start_mediafire_client_resp = start_mediafire_client()
-        
+
     if os.getenv('getfiles') == "1":
         print(mediafire_files)
         mediafire_files = []
@@ -48,12 +48,12 @@ def root_page():
     if not client:
         start_mediafire_client_resp = start_mediafire_client()
         if start_mediafire_client_resp:
-            " Mediafire Client: "+start_mediafire_client_resp+"<br>"
+            "<br> Mediafire Client: "+start_mediafire_client_resp+"<br>"
 
 
     ytid = request.args.get("ytid")
 
-    resp_err_txt += " Youtube ID: "+request.args.get("ytid")+"<br>"
+    resp_err_txt += "<br> Youtube ID: "+str(request.args.get("ytid"))+"<br>"
     isgood = False
     if ytid and client:
         print("Youtube ID:",ytid)
@@ -87,6 +87,7 @@ def root_page():
     if isgood:
         return Response(dl_url, status=201, mimetype="text/plain")
     else:
+        resp_err_txt += "<br> ENV Email: "+str(os.getenv('mediafire_email'))+"<br>"
         return Response(resp_err_txt, status=404, mimetype="text/plain")
 
     #print(ytid)
